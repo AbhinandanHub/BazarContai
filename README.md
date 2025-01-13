@@ -1,1 +1,1 @@
-This is a dynamic eCommerce website called "BazarContai" for a smooth shopping experience.
+This is a dynamic eCommerce website called "BazarContai" for a smooth shopping experience using PHP.
