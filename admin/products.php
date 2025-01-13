@@ -1,0 +1,68 @@
+<?php include('includes/header.php');
+// include('../middleware/adminMiddleWare.php'); // this line not use here because in the header.php file already include this line.
+?>
+
+<div class="container">
+    <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Products</h4>
+            </div>
+            <div class="card-body" id="products_table">     <!--this products_table id for, when we delete any product then only the products are relode (not reload the side bar.)-->
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th Hidden>ID</th> <!-- <th Hidden>ID</th> -->
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $products = getAll("products");
+
+                            if(mysqli_num_rows($products) > 0)
+                            {
+                                foreach($products as $item)
+                                {
+                                    ?>
+                                        <tr>
+                                            <td Hidden> <?= $item['id']; ?></td>   <!-- <td Hidden> <?= $item['id']; ?></td> -->
+                                            <td> <?= $item['name']; ?> </td>
+                                            <td>
+                                                <img src="../uploads/<?= $item['image'];?>" width="50px" height="50px" alt="<?= $item['name'];?>">
+                                            </td>
+                                            <td>
+                                                <?= $item['status'] == '0' ? "Visible":"Hidden" ?>  <!--here use tarnary operator for status 0 (hidden) 1 means visible  -->
+                                            </td>
+                                            <td>
+                                                <a href="edit-product.php?id=<?= $item['id'];?>" class="btn btn-primary">Edit</a> <!--class="btn btn-sm btn-primary"-->
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-danger delete_product_btn" type="button" value="<?= $item['id'];?>">Delete</button>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                }
+                            }
+                            else
+                            {
+                                echo "no records found";
+                            }
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<?php include('includes/footer.php'); ?>
